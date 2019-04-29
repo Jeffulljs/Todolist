@@ -7,6 +7,13 @@
     <title>List</title>
 </head>
 <body>
-    <h1> Aujourd'hui c'est <%= kingOfDay  %></h1>
+
+<% if (kingOfDay === "Samedi" || kingOfDay === "Dimanche"){ %>
+    
+    <h1 style="color: purple"><%= kingOfDay %></h1>
+<% } else{ %>
+    <h1 style="color: blue"><%= kingOfDay %></h1>
+          
+<% } %>
 </body>
 </html>
