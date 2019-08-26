@@ -18,12 +18,13 @@ app.get('/', (req, res) =>{
                 month: 'long', day: 'numeric' };
 
 
-    let day = today.toLocaleDateString('fr-FR', options);
-    
     Date.prototype.toLocaleDateString = function () {
         return `${this.getDate()}/${this.getMonth() + 1}/${this.getFullYear()}`;
+                    
     };
-
+    
+    let day = today.toLocaleDateString('fr-FR', options);
+                
 
     res.render("list", {
         kingOfDay: day,
