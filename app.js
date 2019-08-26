@@ -2,51 +2,45 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-
-
 const app = express();
 
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(express.static("public"));
 
+let items = [];
 
 app.set('view engine', 'ejs'); 
 
 app.get('/', (req, res) =>{
      
-    const today = new Date();
-    const currentDay = today.getDay();
-    let day = "";    
+    let today = new Date();
+    let options = { weekday: 'long', year: 'numeric',
+                month: 'long', day: 'numeric' };
 
-    switch (currentDay) {
-        case 0:
-            day = "Dimanche";
-            break;
-        case 1:
-            day = "Lundi";
-            break;
-        case 2:
-            day = "Mardi";
-            break;
-        case 3:
-            day = "Mercredi";
-            break;
-        case 4:
-            day = "Jeudi";
-            break;
-        case 5:
-            day = "Vendredi";
-            break;
-        case 6:
-            day = "Samedi";
-            break;
-        default:
-        console.log("Erreur: curentDay est égal a: " + currentDay);
-        
-    }
+
+    let day = today.toLocaleDateString('fr-FR', options);
+    
+    Date.prototype.toLocaleDateString = function () {
+        return `${this.getDate()}/${this.getMonth() + 1}/${this.getFullYear()}`;
+    };
+
 
     res.render("list", {
-        kingOfDay: day
+        kingOfDay: day,
+        listItems: items
     });
  
+});
+
+app.post('/', (req,res)=>{
+
+    item = req.body.item;
+    console.log(item);
+
+    items.push(item);
+
+    res.redirect('/');
+    
 });
 
 app.listen(3000, ()=>{
