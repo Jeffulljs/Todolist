@@ -27,7 +27,7 @@ app.get('/', (req, res) =>{
                 
 
     res.render("list", {
-        kingOfDay: day,
+        listTitre: day,
         listItems: items
     });
  
